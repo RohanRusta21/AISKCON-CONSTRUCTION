@@ -1,0 +1,13 @@
+FROM ubuntu
+LABEL maintainer="Rohan Rustagi"
+RUN apt update -y
+RUN apt install nginx -y
+RUN apt install nodejs npm -y
+COPY . /app
+WORKDIR /app
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+COPY . /var/www/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
